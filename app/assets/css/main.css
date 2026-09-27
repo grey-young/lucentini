@@ -1,0 +1,222 @@
+/* Lucentini Antiques & Sculpture: palette, type and shared styles */
+
+:root {
+  --font-serif: "Instrument Serif", "Times New Roman", serif;
+  --font-sans: "Instrument Sans Variable", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "DM Mono", ui-monospace, Menlo, Consolas, monospace;
+
+  --pad: clamp(1.25rem, 3.2vw, 3.5rem);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.83, 0, 0.17, 1);
+
+  /* The live theme. Chapters tween these as they scroll into view. */
+  --bg: #0e0d0b;
+  --fg: #ede6da;
+  --muted: rgba(237, 230, 218, 0.62);
+  --accent: #c9a25e;
+  --line: rgba(237, 230, 218, 0.16);
+}
+
+/* Chapter palettes. Kept in rgba()/hex so GSAP can interpolate them. */
+[data-theme="ink"] {
+  --theme-bg: #0e0d0b;
+  --theme-fg: #ede6da;
+  --theme-muted: rgba(237, 230, 218, 0.62);
+  --theme-accent: #c9a25e;
+  --theme-line: rgba(237, 230, 218, 0.16);
+}
+
+[data-theme="bone"] {
+  --theme-bg: #ece5d8;
+  --theme-fg: #1a1512;
+  --theme-muted: #6b6155;
+  --theme-accent: #7a5a2e;
+  --theme-line: rgba(26, 21, 18, 0.14);
+}
+
+[data-theme="parchment"] {
+  --theme-bg: #dfd0b4;
+  --theme-fg: #2a1d12;
+  --theme-muted: #64503a;
+  --theme-accent: #7c4a1e;
+  --theme-line: rgba(42, 29, 18, 0.2);
+}
+
+[data-theme="oxblood"] {
+  --theme-bg: #3d0f0c;
+  --theme-fg: #f0e3d3;
+  --theme-muted: rgba(240, 227, 211, 0.64);
+  --theme-accent: #e0b36a;
+  --theme-line: rgba(240, 227, 211, 0.16);
+}
+
+[data-theme="verdigris"] {
+  --theme-bg: #132d27;
+  --theme-fg: #e7e6dc;
+  --theme-muted: rgba(231, 230, 220, 0.62);
+  --theme-accent: #8fc2a8;
+  --theme-line: rgba(231, 230, 220, 0.14);
+}
+
+/* Without the scroll choreography, each chapter simply paints its own colors. */
+html:not(.has-motion) [data-theme] {
+  --bg: var(--theme-bg);
+  --fg: var(--theme-fg);
+  --muted: var(--theme-muted);
+  --accent: var(--theme-accent);
+  --line: var(--theme-line);
+
+  background: var(--bg);
+  color: var(--fg);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  font-size: clamp(1rem, 0.95rem + 0.22vw, 1.125rem);
+  font-weight: 400;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: clip;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-weight: 400;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+}
+
+p {
+  margin: 0;
+  text-wrap: pretty;
+}
+
+em {
+  font-style: italic;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+:focus-visible {
+  outline: 1px solid var(--accent);
+  outline-offset: 4px;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 1000;
+  padding: 0.7rem 1rem;
+  background: var(--fg);
+  color: var(--bg);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  transform: translateY(-200%);
+  transition: transform 0.3s var(--ease-out);
+}
+
+.skip-link:focus {
+  transform: none;
+}
+
+/* Small catalogue-style label. */
+.kicker {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  line-height: 1.5;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.kicker b {
+  color: var(--fg);
+  font-weight: 400;
+}
+
+/* SplitText line masks need a little room for descenders. */
+.split-mask {
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+
+/* Film grain over everything, for a printed rather than rendered feel. */
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 900;
+  pointer-events: none;
+  background: url("/images/grain.png") repeat;
+  background-size: 200px;
+  opacity: 0.075;
+  animation: grain 0.8s steps(4) infinite;
+}
+
+@keyframes grain {
+  0% { background-position: 0 0; }
+  25% { background-position: -63px 41px; }
+  50% { background-position: 87px -29px; }
+  75% { background-position: -34px -77px; }
+  100% { background-position: 0 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .grain {
+    animation: none;
+  }
+}
+
+/* Hide the native cursor where the loupe takes over. */
+.has-cursor [data-loupe] {
+  cursor: none;
+}
