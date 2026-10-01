@@ -20,11 +20,11 @@ useScene(root, ({ el, q, motion }) => {
     </p>
     <figure class="statement__cameo">
       <div class="statement__oval">
-        <PieceImage slug="tiberius-cameo" loupe link ratio="3 / 4" position="50% 42%" sizes="(min-width: 64rem) 20vw, 50vw" />
+        <PieceImage slug="egyptian-figure" loupe link ratio="3 / 4" position="50% 22%" sizes="(min-width: 64rem) 20vw, 50vw" />
       </div>
       <figcaption class="kicker">
-        Cameo, 14–37 · Mount, 1525–1550
-        <span>An ancient stone in a new setting</span>
+        Bronze and marble, late 19th century
+        <span>An ancient world, seen anew</span>
       </figcaption>
     </figure>
     <p class="statement__row statement__row--b" aria-hidden="true">

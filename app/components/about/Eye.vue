@@ -3,7 +3,7 @@ import { gsap } from 'gsap'
 import { piece } from '~/data/pieces'
 
 const root = ref<HTMLElement>()
-const box = piece('marlborough-snuff-box')
+const box = piece('orientalist-warrior')
 
 useScene(root, ({ q, motion, desktop }) => {
   if (!motion) return
@@ -54,12 +54,12 @@ useScene(root, ({ q, motion, desktop }) => {
         <path d="M200 0v26M200 374v26M0 200h26M374 200h26" />
       </svg>
       <div class="eye__plate">
-        <PieceImage slug="marlborough-snuff-box" loupe caption link sizes="(min-width: 64rem) 40vw, 88vw" />
+        <PieceImage slug="orientalist-warrior" loupe caption link sizes="(min-width: 64rem) 40vw, 88vw" />
       </div>
       <p class="kicker eye__hint">
         <span class="eye__hint-dot" aria-hidden="true" />
-        <span class="eye__hint-fine">Hover the enamel to look closer</span>
-        <span class="eye__hint-touch">Enamel, gold and diamonds, c. 1775</span>
+        <span class="eye__hint-fine">Hover the bronze to look closer</span>
+        <span class="eye__hint-touch">Patinated bronze, late 19th century</span>
       </p>
       <!-- On touch screens a fixed detail stands in for the loupe. -->
       <div class="eye__detail" aria-hidden="true" :style="{ backgroundImage: `url(${box.src(2400)})` }" />

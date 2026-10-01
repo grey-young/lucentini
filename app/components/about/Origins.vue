@@ -45,10 +45,10 @@ useScene(root, ({ el, q, motion, desktop }) => {
     <div class="origins__grid">
       <div class="origins__media">
         <div class="origins__plate origins__plate--main" data-drift="50">
-          <PieceImage slug="claudius-cameo" loupe caption link sizes="(min-width: 64rem) 30vw, 80vw" />
+          <PieceImage slug="old-centaur" loupe caption link sizes="(min-width: 64rem) 30vw, 80vw" />
         </div>
         <div class="origins__plate origins__plate--small" data-drift="-70">
-          <PieceImage slug="intaglio-ring" loupe caption link sizes="(min-width: 64rem) 18vw, 50vw" />
+          <PieceImage slug="horse-head" loupe caption link sizes="(min-width: 64rem) 18vw, 50vw" />
         </div>
       </div>
 

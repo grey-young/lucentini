@@ -10,7 +10,7 @@ useSeoMeta({
   ogTitle: 'About Lucentini Antiques & Sculpture',
   ogDescription: description,
   ogType: 'website',
-  ogImage: '/images/pieces/lion-earring-1400.webp',
+  ogImage: '/images/pieces/crowned-lion-1400.webp',
 })
 
 useHead({

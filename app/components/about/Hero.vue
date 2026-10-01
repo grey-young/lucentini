@@ -5,12 +5,12 @@ import { piece } from '~/data/pieces'
 
 const root = ref<HTMLElement>()
 const ready = useSiteReady()
-const earring = piece('lion-earring')
+const hero = piece('crowned-lion')
 // The lens magnifies the hero, so it gets the large source too.
-const heroSrcset = `${earring.srcset}, ${earring.src(2400)} 2400w`
+const heroSrcset = `${hero.srcset}, ${hero.src(2400)} 2400w`
 
 useHead({
-  link: [{ rel: 'preload', as: 'image', href: earring.src(1400), imagesrcset: heroSrcset, imagesizes: '100vw', fetchpriority: 'high' }],
+  link: [{ rel: 'preload', as: 'image', href: hero.src(1400), imagesrcset: heroSrcset, imagesizes: '100vw', fetchpriority: 'high' }],
 })
 
 // Keep in step with --r0 in the stylesheet.
@@ -18,15 +18,15 @@ const closedRadius = () => Math.min(innerWidth, innerHeight) * (innerWidth < inn
 const openRadius = () => Math.hypot(innerWidth, innerHeight) / 2 + 40
 
 // While the lens is small it frames the lion's head, then drifts back to the
-// whole earring as it opens. `focus` is the head's position in the photograph.
+// whole bust as it opens. `focus` is the head's position in the photograph.
 const LENS_ZOOM = 1.75
-const focus = { x: 0.345, y: 0.4 }
+const focus = { x: 0.35, y: 0.52 }
 function focusOffset(axis: 'x' | 'y') {
   const box = { w: innerWidth + 96, h: innerHeight + 96 } // .hero__zoom overhangs by 3rem
-  const scale = Math.max(box.w / earring.width, box.h / earring.height)
+  const scale = Math.max(box.w / hero.width, box.h / hero.height)
   return axis === 'x'
-    ? -LENS_ZOOM * (focus.x - 0.5) * earring.width * scale
-    : -LENS_ZOOM * (focus.y - 0.5) * earring.height * scale
+    ? -LENS_ZOOM * (focus.x - 0.5) * hero.width * scale
+    : -LENS_ZOOM * (focus.y - 0.5) * hero.height * scale
 }
 
 useScene(root, ({ q, motion, finePointer }) => {
@@ -99,12 +99,12 @@ useScene(root, ({ q, motion, finePointer }) => {
           <div class="hero__zoom">
             <img
               class="hero__img"
-              :src="earring.src(1400)"
+              :src="hero.src(1400)"
               :srcset="heroSrcset"
               sizes="100vw"
-              :width="earring.width"
-              :height="earring.height"
-              :alt="earring.alt"
+              :width="hero.width"
+              :height="hero.height"
+              :alt="hero.alt"
               fetchpriority="high"
             >
           </div>
@@ -141,7 +141,7 @@ useScene(root, ({ q, motion, finePointer }) => {
         <span class="hero__sub-mask"><em class="hero__sub-line">since 1963</em></span>
       </p>
       <p class="kicker hero__label">
-        {{ earring.title }} · {{ earring.meta }}
+        {{ hero.title }} · {{ hero.meta }}
       </p>
     </div>
   </section>
@@ -372,14 +372,14 @@ useScene(root, ({ q, motion, finePointer }) => {
 <style>
 /* Unscoped: Vue's :global() would drop the rest of the selector.
    Without the choreography the lens holds still on the lion's head, using the
-   same framing the scroll timeline starts from (focus 34.5% / 40%). */
+   same framing the scroll timeline starts from (focus 35% / 52%). */
 html:not(.has-motion) .hero__img {
-  transform: translate(20%, 15%) scale(1.3);
+  transform: translate(20%, -3%) scale(1.3);
 }
 
 @media (orientation: portrait) {
   html:not(.has-motion) .hero__img {
-    transform: translate(56%, 13%) scale(1.3);
+    transform: translate(56%, -3%) scale(1.3);
   }
 }
 

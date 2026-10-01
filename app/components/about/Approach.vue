@@ -7,9 +7,9 @@ const root = ref<HTMLElement>()
 const active = ref(0)
 
 const moments: { text: string, piece: PieceSlug }[] = [
-  { text: 'adding to a lifelong collection,', piece: 'sevres-vases' },
-  { text: 'searching for a single remarkable piece,', piece: 'baroque-pearl' },
-  { text: 'or choosing a gift meant to become an heirloom.', piece: 'portrait-miniature' },
+  { text: 'adding to a lifelong collection,', piece: 'orientalist-warrior' },
+  { text: 'searching for a single remarkable piece,', piece: 'egyptian-figure' },
+  { text: 'or choosing a gift meant to become an heirloom.', piece: 'horse-head' },
 ]
 
 useScene(root, ({ q, motion }) => {

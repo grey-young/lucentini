@@ -8,9 +8,9 @@ const sentence = 'Some objects are made to be used. A rare few are made to outla
 
 // Small plates set into the sentence right after the word they illustrate.
 const pillAfter: Record<string, { slug: PieceSlug, position: string }> = {
-  pearls: { slug: 'pearl-brooch', position: '50% 50%' },
-  sculpture: { slug: 'houdon-bust', position: '50% 24%' },
-  ring: { slug: 'intaglio-ring', position: '50% 58%' },
+  objects: { slug: 'egyptian-figure', position: '50% 22%' },
+  sculpture: { slug: 'old-centaur', position: '50% 30%' },
+  hand: { slug: 'figural-torchere', position: '50% 20%' },
 }
 
 type Token = { word: string } | { slug: PieceSlug, position: string }

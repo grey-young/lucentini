@@ -128,7 +128,7 @@ useScene(root, ({ el, q, motion, desktop }) => {
 
     <div class="today__story">
       <div class="today__plate today__plate--map" data-drift="50">
-        <PieceImage slug="sampler-map" caption link sizes="(min-width: 64rem) 24vw, 70vw" />
+        <PieceImage slug="officer-bust" caption link sizes="(min-width: 64rem) 24vw, 70vw" />
       </div>
       <div class="today__copy">
         <p class="today__body" data-lines>
@@ -139,7 +139,7 @@ useScene(root, ({ el, q, motion, desktop }) => {
         </p>
       </div>
       <div class="today__plate today__plate--globe" data-drift="-60">
-        <PieceImage slug="globe-table" caption link sizes="(min-width: 64rem) 20vw, 60vw" />
+        <PieceImage slug="figural-torchere" caption link sizes="(min-width: 64rem) 20vw, 60vw" />
       </div>
     </div>
   </section>

@@ -102,16 +102,16 @@ useScene(root, ({ q, motion, desktop }) => {
     if (isReady) intro.play()
   }, { immediate: true })
 
-  const detail = q('.detail__img')[0]
-  if (detail) {
-    gsap.fromTo(detail, { scale: 1.7, yPercent: -6 }, {
-      scale: 1.25,
-      yPercent: 6,
+  q('.detail').forEach((section) => {
+    gsap.fromTo(section.querySelector('.detail__img'), { scale: 1.3, yPercent: -4 }, {
+      scale: 1.08,
+      yPercent: 4,
       ease: 'none',
-      scrollTrigger: { trigger: q('.detail')[0], start: 'top bottom', end: 'bottom top', scrub: true },
+      scrollTrigger: { trigger: section, start: 'top bottom', end: 'bottom top', scrub: true },
     })
-    revealLines(q('.detail__text')[0]!)
-  }
+  })
+  const detailText = q('.detail__text')[0]
+  if (detailText) revealLines(detailText)
 
   revealChars(q('.more__title')[0]!)
   gsap.from(q('.more__item'), {
@@ -160,8 +160,9 @@ useScene(root, ({ q, motion, desktop }) => {
             fit="contain"
             sizes="(min-width: 64rem) 50vw, 92vw"
           />
-          <p v-if="p.zoom" class="kicker product__hint product__fade">
-            <span class="product__hint-fine">Hover the piece to look closer</span>
+          <p v-if="p.zoom || p.details.length" class="kicker product__hint product__fade">
+            <span v-if="p.zoom" class="product__hint-fine">Hover the piece to look closer</span>
+            <span v-else class="product__hint-fine">Detail below</span>
             <span class="product__hint-touch">Detail below</span>
           </p>
         </div>
@@ -201,22 +202,29 @@ useScene(root, ({ q, motion, desktop }) => {
       </div>
     </section>
 
-    <section v-if="p.zoom" class="detail" data-theme="ink" data-index="↘" data-chapter="Look closer">
+    <section
+      v-for="(d, i) in p.details"
+      :key="i"
+      class="detail"
+      data-theme="ink"
+      data-index="↘"
+      data-chapter="Look closer"
+    >
       <div class="detail__frame">
         <img
           class="detail__img"
-          :src="p.src(2400)"
-          :data-loupe="p.src(2400)"
-          :width="p.width"
-          :height="p.height"
+          :src="d.src(2400)"
+          :data-loupe="d.width >= 1100 ? d.src(2400) : undefined"
+          :width="d.width"
+          :height="d.height"
           alt=""
           loading="lazy"
           decoding="async"
         >
       </div>
       <div class="detail__label">
-        <p class="kicker"><b>(↘)</b> Detail</p>
-        <p class="detail__text">Closer, the hand of the maker comes forward.</p>
+        <p class="kicker"><b>(↘)</b> Detail<template v-if="p.details.length > 1"> {{ i + 1 }} / {{ p.details.length }}</template></p>
+        <p v-if="i === 0" class="detail__text">Closer, the hand of the maker comes forward.</p>
       </div>
     </section>
 

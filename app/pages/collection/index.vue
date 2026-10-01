@@ -3,7 +3,7 @@ import { gsap } from 'gsap'
 import { Flip } from 'gsap/Flip'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { SplitText } from 'gsap/SplitText'
-import { allPieces, disciplines, type Discipline } from '~/data/pieces'
+import { allPieces, stockedDisciplines as disciplines, type Discipline } from '~/data/pieces'
 import { contact } from '~/data/site'
 
 const description = 'Fine jewelry, sculpture, historical artifacts, and fine art: the kinds of pieces Lucentini Antiques & Sculpture sources for collectors around the world.'
@@ -14,7 +14,7 @@ useSeoMeta({
   ogTitle: 'The Collection | Lucentini Antiques & Sculpture',
   ogDescription: description,
   ogType: 'website',
-  ogImage: '/images/pieces/ship-pendant-1400.webp',
+  ogImage: '/images/pieces/egyptian-figure-1400.webp',
 })
 
 const pieces = allPieces()

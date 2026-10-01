@@ -1,18 +1,17 @@
 <script setup lang="ts">
 import { gsap } from 'gsap'
-import { disciplines as allDisciplines, type Discipline, type PieceSlug } from '~/data/pieces'
+import { allPieces, stockedDisciplines } from '~/data/pieces'
 
 const root = ref<HTMLElement>()
 const current = ref(0)
 
-// Each discipline shown with a lead piece and a second, smaller one.
-const plates: Record<Discipline, { main: PieceSlug, second: PieceSlug }> = {
-  jewelry: { main: 'ship-pendant', second: 'bow-brooch' },
-  sculpture: { main: 'houdon-bust', second: 'amphitrite-bust' },
-  artifacts: { main: 'nola-amphora', second: 'irene-solidus' },
-  art: { main: 'heirlooms-still-life', second: 'curtain-still-life' },
-}
-const disciplines = allDisciplines.map(d => ({ ...d, ...plates[d.id] }))
+// Each discipline in the catalogue, shown with its lead piece and, where it
+// has one, a second, smaller one.
+const pieces = allPieces()
+const disciplines = stockedDisciplines.map((d) => {
+  const [main, second] = pieces.filter(p => p.discipline.id === d.id)
+  return { ...d, main: main!.slug, second: second?.slug }
+})
 
 const pad = (n: number) => String(n).padStart(2, '0')
 
@@ -55,7 +54,8 @@ useScene(root, ({ q, motion, desktop }) => {
     const inView = { trigger: panel, containerAnimation: walk, start: 'left right', end: 'right left', scrub: true }
     const main = panel.querySelector('.collection__main .plate__img')
     if (main) gsap.fromTo(main, { xPercent: -7, scale: 1.16 }, { xPercent: 7, scale: 1.16, ease: 'none', scrollTrigger: inView })
-    gsap.fromTo(panel.querySelector('.collection__second'), { x: 160 }, { x: -160, ease: 'none', scrollTrigger: inView })
+    const second = panel.querySelector('.collection__second')
+    if (second) gsap.fromTo(second, { x: 160 }, { x: -160, ease: 'none', scrollTrigger: inView })
     gsap.from(panel.querySelectorAll('.collection__info > *'), {
       autoAlpha: 0,
       x: 80,
@@ -90,7 +90,7 @@ useScene(root, ({ q, motion, desktop }) => {
             <p class="collection__text">{{ d.text }}</p>
             <NuxtLink :to="{ path: '/collection', query: { d: d.id } }" class="collection__explore">Explore {{ d.title }} <span aria-hidden="true">→</span></NuxtLink>
           </div>
-          <div class="collection__second">
+          <div v-if="d.second" class="collection__second">
             <PieceImage :slug="d.second" loupe caption link ratio="1 / 1" sizes="(min-width: 64rem) 16vw, 60vw" />
           </div>
         </article>
