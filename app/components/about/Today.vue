@@ -60,6 +60,10 @@ useScene(root, ({ el, q, motion, desktop }) => {
     if (desktop) parallax(plate, Number(plate.dataset.drift))
   })
   parallax(q('.today__glow')[0]!, 120, el)
+
+  revealChars(q('.maker__title')[0]!)
+  revealPlate(q('.maker__frame')[0]!)
+  if (desktop) parallax(q('.maker__portrait')[0]!, 40)
 })
 </script>
 
@@ -74,7 +78,7 @@ useScene(root, ({ el, q, motion, desktop }) => {
 
     <div class="today__intro">
       <p class="today__lead" data-lines>
-        Today, the house is led by Hortencia’s grandchild, Lucentini M. Casas.
+        Today, the house is led by Hortencia’s granddaughter, Lucentini M. Casas.
       </p>
       <dl class="today__facts">
         <div>
@@ -132,7 +136,7 @@ useScene(root, ({ el, q, motion, desktop }) => {
       </div>
       <div class="today__copy">
         <p class="today__body" data-lines>
-          Born in Birmingham, England, and raised between Harborne and San Diego, California, Lucentini grew up with a foot on each side of the Atlantic. Inspired by their grandmother’s legacy, they stepped in as owner and lead dealer eight years ago. Their aim was to honor everything she built while carrying it into a new era.
+          Born in Birmingham, England, and raised between Harborne and San Diego, California, Lucentini grew up with a foot on each side of the Atlantic. Inspired by her grandmother’s legacy, she stepped in as owner and lead dealer eight years ago. Her aim was to honor everything Hortencia built while carrying it into a new era.
         </p>
         <p class="today__big" data-lines>
           Under Lucentini’s direction, the house has modernized and grown into a global operation, connecting suppliers and dealerships across continents.
@@ -142,6 +146,46 @@ useScene(root, ({ el, q, motion, desktop }) => {
         <PieceImage slug="figural-torchere" caption link sizes="(min-width: 64rem) 20vw, 60vw" />
       </div>
     </div>
+
+    <article class="maker" aria-labelledby="maker-title">
+      <figure class="maker__portrait">
+        <div class="maker__frame">
+          <img
+            src="/images/owner/lucentini-720.webp"
+            srcset="/images/owner/lucentini-720.webp 720w, /images/owner/lucentini-1400.webp 768w"
+            sizes="(min-width: 56rem) 34vw, 80vw"
+            width="768"
+            height="960"
+            alt="Portrait of Lucentini M. Casas"
+            loading="lazy"
+            decoding="async"
+          >
+        </div>
+        <figcaption class="maker__caption kicker">
+          <span>Lucentini M. Casas</span>
+          <span>Owner, dealer &amp; sculptor</span>
+        </figcaption>
+      </figure>
+
+      <div class="maker__text">
+        <p class="kicker">The sculptor</p>
+        <h3 id="maker-title" class="maker__title">In her own <em>hand</em></h3>
+        <p class="maker__lead" data-lines>
+          Lucentini has been drawn to all things creative since she was a young child. Growing up surrounded by art and history, a life spent making it was never far away.
+        </p>
+        <div class="maker__body">
+          <p data-lines>
+            She earned a first-class honours degree, yet all through her studies she spent her spare hours in the foundry. There, at her grandmother’s side, she mastered the many aspects of sculpture and antiques, helping with her grandmother’s work and learning with every piece.
+          </p>
+          <p data-lines>
+            It was her grandmother who encouraged her to find a hand of her own. Today Lucentini sculpts in a style that is entirely hers, portraying her subjects in a way that is warm, playful, and endearing.
+          </p>
+        </div>
+        <p class="maker__quote" data-lines>
+          She is part of every stage of a piece’s life, from the first form in clay to the final finish.
+        </p>
+      </div>
+    </article>
   </section>
 </template>
 
@@ -337,10 +381,109 @@ useScene(root, ({ el, q, motion, desktop }) => {
   margin-top: clamp(6rem, 18vw, 18rem);
 }
 
+.maker {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: clamp(2.5rem, 7vw, 7rem);
+  align-items: start;
+  margin-top: clamp(6rem, 12vw, 11rem);
+  padding-top: clamp(2rem, 4vw, 3rem);
+  border-top: 1px solid var(--line);
+}
+
+.maker__portrait {
+  margin: 0;
+}
+
+/* Graded toward the house palette: a touch of warmth, cooler blues pulled
+   back, and a verdigris wash in the shadows so it sits with the bronzes. */
+.maker__frame {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4 / 5;
+  background: #3d4a48;
+}
+
+.maker__frame img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.82) sepia(0.14) contrast(1.04);
+}
+
+.maker__frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to top, rgba(18, 32, 29, 0.45), transparent 45%),
+    rgba(143, 194, 168, 0.08);
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+
+.maker__caption {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 0.85rem;
+}
+
+.maker__text {
+  display: grid;
+  gap: clamp(1.5rem, 3vw, 2.25rem);
+  padding-top: clamp(0rem, 4vw, 4rem);
+}
+
+.maker__title {
+  font-size: clamp(3rem, 7vw, 8rem);
+  letter-spacing: -0.04em;
+  line-height: 0.88;
+}
+
+.maker__title em {
+  color: var(--accent);
+}
+
+.maker__lead {
+  max-width: 38rem;
+  font-family: var(--font-serif);
+  font-size: clamp(1.6rem, 2.6vw, 2.7rem);
+  letter-spacing: -0.015em;
+  line-height: 1.06;
+}
+
+.maker__body {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.25rem, 3vw, 2.5rem);
+  max-width: 46rem;
+  font-size: clamp(1rem, 0.95rem + 0.25vw, 1.15rem);
+}
+
+.maker__quote {
+  max-width: 34rem;
+  padding-left: 1.25rem;
+  border-left: 1px solid var(--accent);
+  font-family: var(--font-serif);
+  font-size: clamp(1.3rem, 1.9vw, 1.9rem);
+  font-style: italic;
+  line-height: 1.15;
+  color: var(--accent);
+}
+
 @media (max-width: 56rem) {
   .today__intro,
-  .today__story {
+  .today__story,
+  .maker,
+  .maker__body {
     grid-template-columns: 1fr;
+  }
+
+  .maker__portrait {
+    width: 80%;
   }
 
   .today__plate--map {

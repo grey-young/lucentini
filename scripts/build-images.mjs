@@ -42,7 +42,7 @@ const pieces = [
     views: [photo(3), photo(6), photo(11)],
     title: 'Egyptian Figure with a Vase',
     date: 'Late 19th century',
-    origin: null,
+    origin: 'France',
     artist: null,
     medium: 'Gilt and patinated bronze, rouge marble\nOn a stepped marble base',
   },
@@ -79,7 +79,7 @@ const pieces = [
     views: [photo(14)],
     title: 'Figural Torchère',
     date: '19th or early 20th century',
-    origin: null,
+    origin: 'Italy',
     artist: null,
     medium: 'Carved, painted, and parcel-gilt wood',
   },
@@ -122,6 +122,19 @@ for (const { slug, image, views = [], ...details } of pieces) {
     views: detailViews,
   }
   console.log(`${slug}: ${details.title} (${width}x${height}, ${views.length} views)`)
+}
+
+// The owner's portrait for the About page, cropped to a 4:5 plate around the
+// face and clear of the grey border on the source.
+const portraitDir = join(root, 'public', 'images', 'owner')
+rmSync(portraitDir, { recursive: true, force: true })
+mkdirSync(portraitDir, { recursive: true })
+for (const w of [720, 1400]) {
+  await sharp(join(root, 'public', 'images', 'woman.jpg'))
+    .extract({ left: 140, top: 0, width: 768, height: 960 })
+    .resize({ width: Math.min(w, 768) })
+    .webp({ quality: 80, effort: 5 })
+    .toFile(join(portraitDir, `lucentini-${w}.webp`))
 }
 
 writeFileSync(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`)

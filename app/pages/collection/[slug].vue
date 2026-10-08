@@ -171,6 +171,7 @@ useScene(root, ({ q, motion, desktop }) => {
           <p class="kicker product__fade"><b>Lot {{ p.lot }}</b> · {{ p.discipline.title }}</p>
           <h1 class="product__title">{{ p.title }}</h1>
           <p class="product__meta product__fade">{{ p.meta }}</p>
+          <p v-if="p.summary" class="product__summary product__fade">{{ p.summary }}</p>
           <p class="product__note product__fade">{{ p.note }}</p>
 
           <dl class="product__specs product__fade">
@@ -349,6 +350,15 @@ useScene(root, ({ q, motion, desktop }) => {
   font-style: italic;
   line-height: 1.15;
   color: var(--accent);
+}
+
+.product__summary {
+  max-width: 30rem;
+  font-family: var(--font-serif);
+  font-size: clamp(1.35rem, 1.1rem + 0.8vw, 1.9rem);
+  letter-spacing: -0.01em;
+  line-height: 1.12;
+  text-wrap: pretty;
 }
 
 .product__note {

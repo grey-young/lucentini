@@ -29,22 +29,25 @@ export const disciplines: { id: Discipline, title: string, text: string }[] = [
   },
 ]
 
-// Catalogue order, which also sets each piece's lot number, with a short note
-// for its page.
-const catalogue: { slug: PieceSlug, discipline: Discipline, note: string }[] = [
+// Catalogue order, which also sets each piece's lot number, with a one-line
+// summary and a longer note for its page.
+const catalogue: { slug: PieceSlug, discipline: Discipline, summary?: string, note: string }[] = [
   {
     slug: 'egyptian-figure',
     discipline: 'sculpture',
+    summary: 'Stylized bronze figure inspired by ancient Egyptian royal imagery.',
     note: 'A figure in the Egyptian taste, cradling a vase of red marble cut with hieroglyphs. Gilt bronze picks out the headdress band, collar, belt, and sandals against a deep patina, in the manner the Paris foundries favoured when Egypt was the fashion.',
   },
   {
     slug: 'old-centaur',
     discipline: 'sculpture',
+    summary: 'Classical depiction of a mythological half-human, half-horse warrior.',
     note: 'The elder of the two Furietti centaurs, found at Hadrian’s Villa at Tivoli in 1736. Carved in the dark grey marble the Romans called bigio morato and signed on the base by Aristeas and Papias of Aphrodisias.',
   },
   {
     slug: 'orientalist-warrior',
     discipline: 'sculpture',
+    summary: 'Ornate sculpture of a classical warrior wearing armor and holding a weapon.',
     note: 'A warrior in turban helmet and mail, a censer swinging from his hand. Orientalist bronzes like this brought the costume and ceremony of distant courts into European rooms, and reward a close look at every rivet and link.',
   },
   {
@@ -55,16 +58,19 @@ const catalogue: { slug: PieceSlug, discipline: Discipline, note: string }[] = [
   {
     slug: 'officer-bust',
     discipline: 'sculpture',
+    summary: 'Formal bust of a Napoleonic-style military officer in uniform.',
     note: 'An officer in high collar, greatcoat, and sword belt, an order pinned at his breast. A portrait bust in the formal tradition, made to keep a face and a bearing in the room long after the sitter has left it.',
   },
   {
     slug: 'figural-torchere',
     discipline: 'artifacts',
+    summary: 'Expressive sculpture portraying an African figure with traditional features and ornamentation.',
     note: 'A carved figure holding aloft a gilded acanthus branch, standing on a painted plinth hung with fruit. Torchères of this kind carried light into the grand rooms of Venice and spread across Europe as the taste for theatrical furnishing grew.',
   },
   {
     slug: 'crowned-lion',
     discipline: 'art',
+    summary: 'Detailed bronze sculptures of powerful animals, symbolizing strength, nobility, and nature.',
     note: 'A crowned lion in a tailored suit and a lioness in burnished gold. Contemporary portrait busts that borrow the dignity of the formal bust and give it, with real wit, to the animals.',
   },
 ]
@@ -94,6 +100,7 @@ export function piece(slug: PieceSlug) {
     href: `/collection/${slug}`,
     lot: String(index + 1).padStart(2, '0'),
     discipline: disciplines.find(d => d.id === entry.discipline)!,
+    summary: entry.summary,
     note: entry.note,
     theme: shade < 100 ? 'ink' : 'bone',
     // Close-ups for the page: the further views, or else the photograph itself up close.
